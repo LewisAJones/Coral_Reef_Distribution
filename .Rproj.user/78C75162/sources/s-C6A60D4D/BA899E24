@@ -1,0 +1,26 @@
+{
+    "id": "BA899E24",
+    "path": "~/GitHub/Coral_Reef_Distribution/R/run_analyses.R",
+    "project_path": "R/run_analyses.R",
+    "type": "r_source",
+    "hash": "1724443325",
+    "contents": "",
+    "dirty": false,
+    "created": 1616616458126.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "20,15",
+        "scrollLine": "6"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1616616520,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1616616521000,
+    "read_only": false,
+    "read_only_alternatives": []
+}

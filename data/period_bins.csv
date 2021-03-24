@@ -1,0 +1,13 @@
+interval_no,record_type,scale_no,scale_level,interval_name,abbrev,parent_no,color,max_ma,min_ma,reference_no,mid_ma
+12,int,1,3,Quaternary,,1,#F9F97F,2.588,0,47900,1.294
+25,int,1,3,Neogene,Ng,1,#FFE619,23.03,2.588,47900,12.809
+26,int,1,3,Paleogene,Pg,1,#FD9A52,66,23.03,47900,44.515
+14,int,1,3,Cretaceous,K,2,#7FC64E,145,66,47900,105.5
+15,int,1,3,Jurassic,J,2,#34B2C9,201.3,145,47900,173.15
+16,int,1,3,Triassic,Tr,2,#812B92,252.17,201.3,47900,226.735
+17,int,1,3,Permian,P,3,#F04028,298.9,252.17,47900,275.535
+18,int,1,3,Carboniferous,C,3,#67A599,358.9,298.9,47900,328.9
+19,int,1,3,Devonian,D,3,#CB8C37,419.2,358.9,47900,389.05
+20,int,1,3,Silurian,S,3,#B3E1B6,443.4,419.2,47900,431.3
+21,int,1,3,Ordovician,O,3,#009270,485.4,443.4,47900,464.4
+22,int,1,3,Cambrian,Cm,3,#7FA056,541,485.4,47900,513.2
