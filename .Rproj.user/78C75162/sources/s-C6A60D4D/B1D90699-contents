@@ -1,4 +1,4 @@
-# Climate and palaeogeography shaped the tropical distribution of coral reefs and associated biodiversity
+# Climate and palaeogeography shaped the tropical distribution of coral reefs
 
 Author(s): [Lewis A. Jones](mailto:l.jones16@imperial.ac.uk), [Philip D. Mannion](mailto:philipdmannion@gmail.com), [Alexander Farnsworth](mailto:alex.Farnsworth@bristol.ac.uk), [Daniel J. Lunt](mailto:D.J.Lunt@bristol.ac.uk)
 
