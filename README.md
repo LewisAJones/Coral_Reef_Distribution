@@ -1,11 +1,11 @@
-# Climate and palaeogeography shaped the tropical distribution of coral reefs
+# Climatic and tectonic drivers shaped the tropical distribution of coral reefs
 
 Author(s): [Lewis A. Jones](mailto:l.jones16@imperial.ac.uk), [Philip D. Mannion](mailto:philipdmannion@gmail.com), [Alexander Farnsworth](mailto:alex.Farnsworth@bristol.ac.uk), [Daniel J. Lunt](mailto:D.J.Lunt@bristol.ac.uk)
 
-This repository contains the data and code required to run the analyses and results of the article, "Climate and palaeogeography shaped the tropical distribution of coral reefs" (Jones et al. 2021). 
+This repository contains the data and code required to run the analyses and results of the article, "Climatic and tectonic drivers shaped the tropical distribution of coral reefs" (Jones et al. 2021). 
 
 To cite the paper: 
-> Lewis A. Jones, Philip D. Mannion, Alexander Farnsworth, Daniel J. Lunt. 2021. Climate and palaeogeography shaped the tropical distribution of coral reefs. (TBC).
+> Lewis A. Jones, Philip D. Mannion, Alexander Farnsworth, Daniel J. Lunt. 2021. Climatic and tectonic drivers shaped the tropical distribution of coral reefs. (TBC).
 
 -------
 
