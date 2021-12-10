@@ -1,6 +1,6 @@
 # Climatic and tectonic drivers shaped the tropical distribution of coral reefs
 
-Author(s): [Lewis A. Jones](mailto:l.jones16@imperial.ac.uk), [Philip D. Mannion](mailto:philipdmannion@gmail.com), [Alexander Farnsworth](mailto:alex.Farnsworth@bristol.ac.uk), [Daniel J. Lunt](mailto:D.J.Lunt@bristol.ac.uk)
+Author(s): [Lewis A. Jones](mailto:LewisA.Jones@outlook.com), [Philip D. Mannion](mailto:philipdmannion@gmail.com), [Alexander Farnsworth](mailto:alex.Farnsworth@bristol.ac.uk), [Daniel J. Lunt](mailto:D.J.Lunt@bristol.ac.uk)
 
 This repository contains the data and code required to run the analyses and results of the article, "Climatic and tectonic drivers shaped the tropical distribution of coral reefs" (Jones et al. 2021). 
 
@@ -39,6 +39,9 @@ This folder contains the data related to centroid calculations.
 
 * **./results/Performance/**
 This folder contains the data related to model performance.
+
+* **./results/Boyce_index/**
+This folder contains the data related to results from the continuous Boyce Index.
 
 * **./results/Predictions/**
 This folder contains the data related to habitat distribution model predictions.
