@@ -1,7 +1,0 @@
-[1,"WARNING: invalid R_MAX_VSIZE ignored\n"]
-[1,"Installing 'Rmisc' ...\n"]
-[2,"trying URL 'https://cran.rstudio.com/bin/macosx/contrib/4.1/Rmisc_1.5.tgz'\n"]
-[2,"Content type 'application/x-gzip' length 50394 bytes (49 KB)\n==================================================\ndownloaded 49 KB\n\n"]
-[1,"The downloaded binary packages are in\n"]
-[1,"\t/var/folders/c2/z4pxtqjs6fv6hz9_97tz8ghw0000gn/T//RtmphnQB7O/downloaded_packages\n"]
-[2,"\n\n✔ Package 'Rmisc' successfully installed.\n"]
