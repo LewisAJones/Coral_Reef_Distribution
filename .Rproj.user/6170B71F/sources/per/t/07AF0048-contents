@@ -1,0 +1,78 @@
+library(sdmpredictors)
+
+layers <- list_layers()
+
+sst_range <- load_layers(layercodes = "BO_sstrange")
+sst_mean  <- load_layers(layercodes = "BO_sstmean")
+sst_min  <- load_layers(layercodes = "BO_sstmin")
+DEM <- load_layers(layercodes = "BO_bathymin")
+min_sal <- load_layers(layercodes = "BO2_salinitymin_ss")
+chlo_mean <- load_layers(layercodes = "BO2_chlomax_ss")
+phos_mean <- load_layers(layercodes = "BO2_phosphatemax_ss")
+nit_mean <- load_layers(layercodes = "BO2_nitratemax_ss")
+par_mean <- load_layers(layercodes = "BO_parmean")
+current_mean <- load_layers(layercodes = "BO2_curvelmax_ss")
+
+
+DEM <- abs(DEM)
+names(DEM) <- "dem"
+DEM[DEM > 200] <- NA
+#DEM <- raster::aggregate(DEM, fact = res/res(bathymetry)[1], fun = 'min')
+
+stk <- stack(sst_mean, sst_range, sst_min, DEM, min_sal, phos_mean, nit_mean, par_mean, current_mean)
+names(stk) <- c("mean_sst", "range_sst", "min_sst", "dem", "min_sal", "mean_phos", "mean_nit", "mean_par", "mean_current")
+stk <- mask(x = stk, mask = DEM)
+
+paths <- paste("./data/enm/layers/Modern/", sep = "")
+dir.create(paths)
+paths <- paste(rep(paths, nlayers(stk)), names(stk), ".asc", sep = "")
+writeRaster(x = stk, filename = paths, bylayer = TRUE, overwrite = TRUE)
+
+#prepare occurrence data
+#load libraries
+library(sf)
+library(dplyr)
+library(raster)
+source("./R/options.R")
+
+#load data
+data <- st_read("/Users/lewis/Documents/Projects/Coral reef distribution/data/WCMC008_CoralReefs2018_v4/01_Data/WCMC008_CoralReef2018_Py_v4.shp")
+#extract geometry
+pts <- st_geometry(data)
+#format coordinates
+pts <- st_coordinates(pts)
+#filter data
+pts <- pts[,c("X", "Y")]
+
+r <- raster(res = res(DEM))
+#rasterize points
+ras <- rasterize(x = pts, y = r, field = 1) 
+#plot raster
+plot(ras)
+#spatial subsample
+pts_ras <- rasterToPoints(ras)
+pts_ras <- data.frame(pts_ras[,c("x","y")])
+pts_ras$species <- "reef"
+pts_ras <- pts_ras[,c("species", "x", "y")]
+
+#plot points
+#plot(pts_ras[,2:3])
+#save data
+#write.csv(pts, "./data/occurrences/UNEP_pts.csv", row.names = FALSE)
+write.csv(pts_ras, "./data/occurrences/UNEP_pts_subsample_biooracle.csv", row.names = FALSE)
+writeRaster(ras, "./data/occurrences/UNEP_raster_biooracle.asc", overwrite = TRUE)
+
+
+beepr::beep(2)
+
+
+
+
+
+
+r <- raster("./outputs/reef.asc")
+plot(r)
+
+r <- raster("./outputs/reef_thresholded.asc")
+plot(r)
+

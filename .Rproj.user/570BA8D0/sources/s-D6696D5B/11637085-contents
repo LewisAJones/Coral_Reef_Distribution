@@ -217,6 +217,7 @@ TSWLatexianTemp*
 *.sta
 # Makeindex log files
 *.lpz
+.Rproj.user
 .Rhistory
 outputs
 .DS_Store
@@ -224,5 +225,3 @@ outputs
 .RData 2
 .RDataTmp
 maxent
-
-

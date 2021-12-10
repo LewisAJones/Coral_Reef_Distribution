@@ -1,0 +1,193 @@
+# Environmental data processing
+# Lewis A. Jones
+# August 2021
+#---------------------------------
+library(raster)
+library(ncdf4)
+library(spatialEco)
+source("./R/options.R")
+#---------------------------------
+#load simulation codes
+simulations <- read.csv("./data/exp_codes.csv", sep = ";")
+#retain only pre-industrial code
+simulations <- subset(simulations, interval_name == "Pre-Industrial_hadcm3l")
+#transform to character string
+exp_code <- as.character(simulations$exp_code)
+dem_code <- as.character(simulations$dem_code)
+#generate empty raster for resampling
+r <- raster(res = res)
+#---------------------------------
+#set up syntax
+months <- c("jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec", "djf", "mam", "jja", "son")
+irr <- c(paste("_sed_solar_mm_s3_srf_", months, "_formatted_180.nc", sep = ""))
+sst <- c(paste("o.pfcl", months, "_formatted_sst_180.nc", sep = ""))
+sal <- c(paste("o.pfcl", months, "_formatted_salinity_180.nc", sep = ""))
+vvel <- c(paste("o.pfcl", months, "_formatted_vvelocity_180.nc", sep = ""))
+bathy <- c("_bathymetry_180.nc")
+#---------------------------------
+#prepare bathymetry data
+DEM <- raster(paste("./data/dem/", dem_code, bathy, sep = ""))
+#remove data above sea level
+DEM[DEM > 0] <- NA
+#transform to absolute values
+DEM <- abs(DEM)
+#aggregate to desired resolution
+DEM <- raster::aggregate(DEM, fact = res/res(DEM)[1], fun = 'min')
+#resample data to fit same extent as climate data
+DEM <- raster::resample(x = DEM, y = r)
+#name data and plot
+names(DEM) <- "dem"
+#plot(DEM)
+#---------------------------------
+#prepare climate data
+
+#load irradiance data and get summary layers
+sol <- raster::stack(paste("./data/climate/", exp_code, irr, sep = ""), varname = "solar_mm_s3_srf")
+sol <- raster::resample(sol, r)
+names(sol) <- paste("irr_", months, sep = "")
+max_irr <- raster::calc(sol[[1:12]], function(x){max(x, na.rm = FALSE)})
+min_irr <- raster::calc(sol[[1:12]], function(x){min(x, na.rm = FALSE)})
+range_irr <- max_irr - min_irr
+mean_irr <- raster::calc(sol[[1:12]], function(x){mean(x, na.rm = FALSE)})
+
+#name layers
+names(max_irr) <- c("max_irr")
+names(min_irr) <- c("min_irr")
+names(range_irr) <- c("range_irr")
+names(mean_irr) <- c("mean_irr")
+
+#load sst data and get summary layers
+sst <- raster::stack(paste("./data/climate/", exp_code, sst, sep = ""), varname = "temp_mm_dpth")
+sst <- raster::resample(sst, r)
+names(sst) <- paste("sst_", months, sep = "")
+max_sst <- calc(sst[[1:12]], function(x){max(x)})
+min_sst <- calc(sst[[1:12]], function(x){min(x)})
+range_sst <- max_sst - min_sst
+mean_sst <- raster::calc(sst[[1:12]], function(x){mean(x, na.rm = FALSE)})
+
+#name layers
+names(max_sst) <- c("max_sst")
+names(min_sst) <- c("min_sst")
+names(range_sst) <- c("range_sst")
+names(mean_sst) <- c("mean_sst")
+
+#load salinity data and get summary layers
+sal <- raster::stack(paste("./data/climate/", exp_code, sal, sep = ""), varname = "salinity_mm_dpth")
+sal <- (sal + 0.035)*1000 #convert to PSU
+sal <- raster::resample(sal, r)
+names(sal) <- paste("sal_", months, sep = "")
+max_sal <- calc(sal[[1:12]], function(x){max(x)})
+min_sal <- calc(sal[[1:12]], function(x){min(x)})
+range_sal <- max_sal - min_sal
+mean_sal <- raster::calc(sal[[1:12]], function(x){mean(x, na.rm = FALSE)})
+
+#name layers
+names(max_sal) <- c("max_sal")
+names(min_sal) <- c("min_sal")
+names(range_sal) <- c("range_sal")
+names(mean_sal) <- c("mean_sal")
+
+#load vertical velocity data and get summary layers
+vvel <- raster::stack(paste("./data/climate/", exp_code, vvel, sep = ""), varname = "W_mm_dpth")
+vvel <- (vvel * 86400) #convert to cm per day
+vvel <- raster::resample(vvel, r)
+names(vvel) <- paste("vvel_", months, sep = "")
+max_vvel <- calc(vvel[[1:12]], function(x){max(x)})
+min_vvel <- calc(vvel[[1:12]], function(x){min(x)})
+range_vvel <- max_vvel - min_vvel
+mean_vvel <- raster::calc(vvel[[1:12]], function(x){mean(x, na.rm = FALSE)})
+
+#name layers
+names(max_vvel) <- c("max_vvel")
+names(min_vvel) <- c("min_vvel")
+names(range_vvel) <- c("range_vvel")
+names(mean_vvel) <- c("mean_vvel")
+
+stk <- stack(sst, sol, sal, vvel,
+             DEM, 
+             max_sst, min_sst, range_sst, mean_sst, 
+             max_irr, min_irr, range_irr, mean_irr,
+             max_sal, min_sal, range_sal, mean_sal,
+             max_vvel, min_vvel, range_vvel, mean_vvel)
+
+#---------------------------------
+#mask environmental data by DEM
+#DEM[DEM > 200] <- NA
+stk <- raster::mask(stk, DEM)
+#---------------------------------
+#check for multicollinearity 
+
+#pearson stats
+pearson <- layerStats(stk,'pearson',na.rm=TRUE)
+# Transform correlation results in a dataframe
+cor.df <- as.data.frame(pearson[[1]])
+# Check dataframe structure
+head(cor.df)
+# Calculate dendrogram based on distance (less distance = more correlation)
+var.dist <- abs(as.dist(cor.df))
+var.cluster <- hclust(1-var.dist)
+# Plot dendrogram
+plot(var.cluster)
+abline(h=0.25, lty=2, lwd=2) # variables that have a correlation <= 0.75
+
+##subset selected variables
+stk <- stack(stk$range_sst, stk$mean_sst,
+             stk$irr_jja, stk$irr_djf,
+             stk$min_sal,
+             stk$max_vvel,
+             stk$dem)
+
+##---------------------------------
+##approximate NAs for ocean vars from neighboring cells
+#load occurrence data
+#pts_ras <- read.csv("./data/occurrences/ReefBase_pts_subsample.csv")
+##subset ocean vars
+#ocean <- stack(stk$mean_sst, stk$range_sst, stk$min_sal, stk$max_vvel)
+##extract environmental data for reef localities
+#ext <- extract(x = ocean, y = pts_ras[, c("x", "y")], cellnumbers = TRUE, df = TRUE)
+##subset localities without environmental data
+#cells <- subset(ext, is.na(mean_sst))
+##extract xy from cell
+#xy <- xyFromCell(object = ocean, cell = cells$cells)
+##interpolate between neighbouring cells for specific reef localities
+#ext <- extract(x = ocean, y = xy, df = FALSE, method = 'bilinear', na.rm = TRUE)
+##bind data 
+#xy <- cbind(xy, ext)
+##extract unique cell id
+#cells <- cellFromXY(object = ocean, xy = xy[,c("x", "y")])
+##bind to xy
+#xy <- cbind(xy, cells)
+##replace NA values with interpolated values
+#ocean[xy[,"cells"]] <- xy[, names(ocean)]
+##replace rasters with updated versions
+#stk$mean_sst <- ocean$mean_sst
+#stk$range_sst <- ocean$range_sst
+#stk$min_sal <- ocean$min_sal
+#stk$max_vvel <- ocean$max_vvel
+#---------------------------------
+#remove occurrences deeper than 200 m
+ext <- extract(x = stk$dem, y = pts_ras[,c("x","y")])
+ext <- which(ext <= 200)
+pts_ras <- pts_ras[ext,]
+
+#remove occurrences without ocean data 
+ext <- extract(x = stk$mean_sst, y = pts_ras[,c("x","y")], df = TRUE)
+ext <- which(!is.na(ext$mean_sst)) #all ocean vars missing data in same location
+pts_ras <- pts_ras[ext,]
+
+#remove occurrences without atmosphere data 
+ext <- extract(x = stk$irr_djf, y = pts_ras[,c("x","y")], df = TRUE)
+ext <- which(!is.na(ext$irr_djf)) #all atmosphere vars missing data in same location
+pts_ras <- pts_ras[ext,]
+
+#---------------------------------
+
+#save environmental data
+paths <- paste("./data/enm/layers/Modern/", sep = "")
+dir.create(paths)
+paths <- paste(rep(paths, nlayers(stk)), names(stk), ".asc", sep = "")
+writeRaster(x = stk, filename = paths, bylayer = TRUE, overwrite = TRUE)
+#save occurrence data
+write.csv(pts_ras, "./data/occurrences/ReefBase_pts_subsample.csv", row.names = FALSE)
+
+beepr::beep(2)

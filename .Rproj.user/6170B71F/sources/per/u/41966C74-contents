@@ -1,0 +1,6 @@
+r <- raster("./outputs/reef_0.asc")
+plot(r)
+
+r[r < 0.5] <- 0
+r[r >= 0.5] <- 1
+plot(r)
