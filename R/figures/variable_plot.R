@@ -1,7 +1,7 @@
 #sst and dem plot
 
 # Lewis A. Jones
-# March 2020
+# March 2021
 #---------------------------------
 library(ggplot2)
 library(ggpubr)
@@ -36,12 +36,12 @@ for(i in 1:nrow(periods)){
 
 data <- subset(data, mid <= 40)
 data <- subset(data, mid >= -40)
-vec <- which(data$sst < 16)
-data$sst[vec] <- NA
+#vec <- which(data$sst < 18)
+#data$sst[vec] <- NA
 
 p1 <- ggplot() + 
   geom_tile(data = data, aes(x = mid_ma, y = mid, fill = sst, width = duration, height = 20), colour = "black") +
-  scale_fill_viridis(option = "D", direction = 1, limits = c(15, 35), breaks=seq(from = 15, to = 35, by = 5), labels = seq(from = 15, to = 35, by = 5)) +
+  scale_fill_viridis(option = "D", direction = 1, limits = c(0, 35), breaks=seq(from = 0, to = 35, by = 5), labels = seq(from = 0, to = 35, by = 5)) +
   #geom_tile(data = NULL, aes(x = 298.900/2, y = 95, width = 298.900, height = 10), colour = "black", fill= "black")+
   geom_tile(data = stages, aes(x = mid_ma, y = 55, width = duration, height = 10), colour = NA, fill= stages$color)+
   geom_text(data = periods, aes(x = mid_ma, y = 55, label = abbrev), color = "black", size = 4) +
@@ -75,7 +75,7 @@ p1
 
 p2 <- ggplot() + 
   geom_tile(data = data, aes(x = mid_ma, y = mid, fill = dem, width = duration, height = 20), colour = "black") +
-  scale_fill_viridis(option = "D", direction = 1, limits = c(0, 150), breaks=seq(0, 150, by= 25), labels = seq(0, 150, by = 25)) +
+  scale_fill_viridis(option = "D", direction = 1, limits = c(0, 200), breaks=seq(0, 175, by= 25), labels = seq(0, 175, by = 25)) +
   #geom_tile(data = NULL, aes(x = 298.900/2, y = 95, width = 298.900, height = 10), colour = "black", fill= "black")+
   geom_tile(data = stages, aes(x = mid_ma, y = 55, width = duration, height = 10), colour = NA, fill= stages$color)+
   geom_text(data = periods, aes(x = mid_ma, y = 55, label = abbrev), color = "black", size = 4) +
@@ -104,7 +104,7 @@ p2 <- ggplot() +
     aspect.ratio = 0.5)
 
 
-p2 <- p2 + guides(fill = guide_colourbar(ticks.colour = "black", frame.colour = "black", label = TRUE, title = expression(bold(paste("Shallow marine area (",10^6~km^2,")",sep=""))), title.position = "top", title.hjust = 0.5, title.vjust = -9))
+p2 <- p2 + guides(fill = guide_colourbar(ticks.colour = "black", frame.colour = "black", label = TRUE, title = expression(bold(paste("Shallow marine area (",10^6~km^2,")",sep=""))), title.position = "top", title.hjust = 0.5, title.vjust = -8.5))
 p2
 
 ggsave("./figures/temperature_plot.png", plot = p1, width = 210, height = 140, units = "mm", dpi = 600)

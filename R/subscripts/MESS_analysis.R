@@ -2,8 +2,8 @@
 library(raster)
 library(dplyr)
 
-collections <- read.csv("./data/occurrences/subsampled_PBDB_collections.csv")
-stages <- unique(collections$stage)
+collections <- read.csv("./data/occurrences/PARED_subsampled.csv")
+stages <- unique(collections$interval_name)
 files <- list.files("./results/RUN/", pattern = "_novel.asc")
 
 master <- data.frame()
@@ -13,10 +13,10 @@ for(i in stages){
   #extract stage name
   name <- i
   #subset collection data
-  xy <- subset(collections, stage == name)[,c("x", "y")]
+  xy <- subset(collections, interval_name == name)[,c("P.Long", "P.Lat")]
   ext <- extract(x = r, y = xy)
-  vec <- which(ext == 0)
-  xy <- xy[vec,]
+  #vec <- which(ext == 0)
+  #xy <- xy[vec,]
   
   if(nrow(xy) == 0){next}
   
@@ -30,6 +30,5 @@ for(i in stages){
 
   master <- rbind.data.frame(master, df)
 }
-test <- subset(master, dem > 200)
 
 beepr::beep(2)

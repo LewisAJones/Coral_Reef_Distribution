@@ -5,22 +5,42 @@ library(ggplot2)
 library(ggthemes)
 library(rnaturalearth)
 library(rnaturalearthdata)
+library(rgdal)
+library(maps)
 
 world <- ne_countries(scale = "medium", returnclass = "sf")
 coastline <- ne_coastline(scale = "medium", returnclass = "sf")
 
-#data <- st_read("C:\\Users/Lewis Jones/OneDrive/Reef ENM paper/data/WCMC008_CoralReefs2018_v4/01_Data/WCMC008_CoralReef2018_Py_v4.shp")
+data <- read.csv("./data/occurrences/ReefBase_pts_subsample.csv")
 
-data <- read.csv("./data/occurrences/UNEP_pts_subsample.csv")
+DEM <- raster("./data/dem/pre_ind_bathymetry_180.nc")
+#prepare bathymetry data
+DEM <- mask(x = DEM, mask = world, inverse = TRUE)
+#set absolute values
+DEM[DEM > 0] <- NA
+DEM <- abs(DEM)
+DEM[DEM > 200] <- NA
+#aggregate to desired resolution, retaining minimum cell value
+DEM <- raster::aggregate(DEM, fact = 1/res(DEM)[1], fun = 'min')
+#resample data to fit same extent as climate data
+DEM <- raster::resample(x = DEM, y = raster(res = 1))
+#name data and plot
+names(DEM) <- "dem"
+plot(DEM)
+DEM <- as(DEM, "SpatialPixelsDataFrame")
+DEM <- data.frame(DEM)
+DEM <- na.omit(DEM)
 
 p1 <- ggplot() +
-  geom_sf(data = world, fill = "grey80", colour = "grey80") +
-  geom_sf(data = coastline, colour = "grey50") +
-  geom_point(data = data, aes(x=x, y=y), shape = 21, size = 2, fill = "#0868ac", colour = "black")  +
-  #geom_sf(data = data, fill = "#99000d", colour = "#99000d") +
+  geom_tile(data = DEM, aes(x = x, y = y), fill = "#a6cee3", colour = "darkgrey", alpha = 1) +
+  geom_tile(data = data, aes(x=x, y=y), fill = "#d73027", colour = "black", alpha = 1) + 
+  geom_sf(data = world, fill = "grey80", colour = "grey80", alpha = 1) +
+  geom_sf(data = coastline, colour = "black", alpha = 0.5) +
+  #geom_point(data = data, aes(x = x, y = y), shape = 21, colour = "black", fill = "#377eb8") +
   theme_map() +
   theme(legend.position="") +
-  theme(legend.key.width=unit(2, "cm"))
+  theme(legend.key.width=unit(2, "cm"),
+  plot.background=element_rect(fill = "white", colour = NA))
 
 p1
 

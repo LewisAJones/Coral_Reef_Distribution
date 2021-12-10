@@ -3,18 +3,18 @@ library(ggthemes)
 library(rnaturalearth)
 library(rnaturalearthdata)
 
-hab_plot <- function(x, xy, col = "darkcyan", name = "name", lab = "label", heat = FALSE){
+hab_plot <- function(x, y, xy, col = "darkcyan", name = "name", lab = "label", heat = FALSE){
 
   world <- ne_countries(scale = "medium", returnclass = "sf")
   
   if(heat == TRUE){
     df <- as.data.frame(x, xy = TRUE)
-    colnames(df) <- c("x", "y", "value")
+    colnames(df) <- c("P.Long", "P.Lat", "value")
     
     p <- ggplot() +
       geom_sf(data = world, fill = "white", colour = "white") +
-      geom_tile(data = df, aes(x=x, y=y, fill = value))  +
-      geom_point(data = xy, aes(x=x, y=y), shape = 21, size = 1, fill = "white", colour = "black", alpha =0.75)  +
+      geom_tile(data = df, aes(x=P.Long, y=P.Lat, fill = value))  +
+      geom_point(data = xy, aes(x=P.Long, y=P.Lat), shape = 21, size = 1, fill = "white", colour = "black", alpha =0.75)  +
       scale_fill_viridis_c(option = "A", begin = 0.1, na.value = "darkgrey") +
       geom_text(aes(x = -130, y = -82, label = name), colour = "white") +
       geom_text(aes(x = -170, y = 82, label = lab), colour = "white", hjust = "left") +
@@ -32,17 +32,20 @@ hab_plot <- function(x, xy, col = "darkcyan", name = "name", lab = "label", heat
   else{
     x[is.na(x)] <- 0.5
     df <- as.data.frame(x, xy = TRUE)
-    colnames(df) <- c("x", "y", "value")
+    colnames(df) <- c("P.Long", "P.Lat", "value")
+    y <- as.data.frame(y, xy = TRUE)
     
   p <- ggplot() +
     geom_sf(data = world, fill = "white", colour = "white") +
-    geom_tile(data = df, aes(x=x, y=y, fill = as.factor(value)))  +
-    geom_point(data = xy, aes(x=x, y=y), shape = 21, size = 1.5, fill = "white", colour = "black", alpha = 0.75)  +
-    geom_rect(aes(xmin = -180, xmax = -50, ymin = 73, ymax = 90), fill = "white", alpha = 0.75) +
-    #geom_text(aes(x = -175, y = -82, label = name), hjust = "left") +
-    geom_text(aes(x = -175, y = 82, label = lab), hjust = "left") +
+    geom_tile(data = df, aes(x=x, y=y), fill = "darkgrey")  +
+    geom_tile(data = df, aes(x=P.Long, y=P.Lat, fill = as.factor(value), colour = as.factor(value)))  +
+    geom_point(data = xy, aes(x=P.Long, y=P.Lat), shape = 21, size = 1.25, fill = "red", colour = "black", alpha = 0.75)  +
+    #geom_rect(aes(xmin = -180, xmax = -50, ymin = 73, ymax = 90), fill = "white", alpha = 0.75) +
+    geom_text(aes(x = -175, y = -82, label = name), hjust = "left") +
+    #geom_text(aes(x = -175, y = 82, label = lab), hjust = "left") +
     #labs(subtitle = lab) +
     scale_fill_manual(values = c("aliceblue", "darkgrey", col)) +
+    scale_colour_manual(values = c("aliceblue", "darkgrey", col)) +
     xlim(-180, 178) +
     theme_map() +
     theme(legend.position="") +

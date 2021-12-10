@@ -1,6 +1,22 @@
-#centroid calculation
+#-------------------------------------------------
+# Project: Coral_Reef_Distribution
+#
+# Date: 2021-10-29
+# Author: Lewis A. Jones
+# Copyright (c) Lewis A. Jones, 2021
+# Email: LewisA.Jones@outlook.com
+#
+# Script name:
+# centroid_calc.R
+#
+# Script description:
+# Calculate centroid for discrete predictions
+#
+#-------------------------------------------------
+#load libraries
 library(raster)
 source("./R/functions/gCentroid_weight.R")
+#-------------------------------------------------
 
 files <- list.files("./results/Predictions/Binary/LPT/", pattern = ".asc")
 files <- files[!files == "Modern.asc"]

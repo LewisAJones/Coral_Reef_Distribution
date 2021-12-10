@@ -5,7 +5,7 @@ source("./R/options.R")
 area_ras <- area(x = raster(res = res))
 
 files <- list.files("./data/enm/layers/")
-files <- files[!files == "Modern.asc"]
+files <- files[!files == "Modern"]
 
 master <- data.frame()
 
@@ -16,11 +16,11 @@ for(i in files){
   lats$sst <- NA
   lats$dem <- NA
   
-  r1 <- raster(paste("./data/enm/layers/", name, "/sst_ann.asc", sep =""))
+  r1 <- raster(paste("./data/enm/layers/", name, "/min_sst.asc", sep =""))
   r2 <- raster(paste("./data/enm/layers/", name, "/dem.asc", sep =""))
   
-  r2[r2 >= 200] <- NA
-  r2[!is.na(r2)] <- 1
+  #r2[r2 >= 200] <- NA
+  #r2[!is.na(r2)] <- 1
   #plot(r2)
   r2 <- mask(x = area_ras, mask = r2)
   
@@ -29,7 +29,7 @@ for(i in files){
   
   for(j in 1:nrow(lats)){
     tmp <- subset(r1, y <= lats$max[j] & y >= lats$min[j])
-    lats$sst[j] <- mean(tmp$sst_ann)
+    lats$sst[j] <- mean(tmp$min_sst)
     
     tmp <- subset(r2, y <= lats$max[j] & y >= lats$min[j])
     lats$dem[j] <- sum(tmp$layer)

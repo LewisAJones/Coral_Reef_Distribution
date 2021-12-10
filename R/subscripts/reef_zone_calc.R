@@ -1,4 +1,18 @@
-#reef zone calculation
+#-------------------------------------------------
+# Project: Coral_Reef_Distribution
+#
+# Date: 2021-10-29
+# Author: Lewis A. Jones
+# Copyright (c) Lewis A. Jones, 2021
+# Email: LewisA.Jones@outlook.com
+#
+# Script name:
+# reef_zone_calc.R
+#
+# Script description:
+# Calculate reef zone
+#
+#-------------------------------------------------
 library(raster)
 source("./R/functions/lat_zone.R")
 

@@ -2,7 +2,7 @@ library(raster)
 
 stages <- read.csv("./data/stage_bins.csv")
 stages <- stages[6:50,]
-collections <- read.csv("./data/occurrences/subsampled_PBDB_collections.csv")
+collections <- read.csv("./data/occurrences/PARED_subsampled.csv")
 
 master <- data.frame()
 
@@ -10,11 +10,11 @@ for(i in 1:nrow(stages)){
   #extract stage name
   name <- stages$interval_name[i]
   #subset collection data
-  xy <- subset(collections, stage == name)[,c("x", "y")]
+  xy <- subset(collections, interval_name == name)[,c("P.Long", "P.Lat")]
   
-  r <- raster(paste("./results/RUN/reef_0_", stages$interval_name[i], "_novel_limiting.asc", sep = ""))
+  r <- raster(paste("./outputs/reef_0_", stages$interval_name[i], "_novel_limiting.asc", sep = ""))
   #r[r != 5] <- 1
-  r[r == 5] <- NA
+  #r[r == 5] <- NA
   
   ext <- extract(x = r, y = xy)
   vec <- which(!is.na(ext))
@@ -28,3 +28,8 @@ for(i in 1:nrow(stages)){
   master <- rbind.data.frame(master, df)
 
 }
+test <- subset(master, ext != 4)
+nrow(subset(master, ext == 3)) #minimum sst
+nrow(subset(master, ext == 1)) #maximum sst
+nrow(subset(master, ext == 2)) #minimum irr
+nrow(subset(master, ext == 0)) #maximum irr

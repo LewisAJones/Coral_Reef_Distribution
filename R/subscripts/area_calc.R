@@ -1,5 +1,19 @@
-#area calculation
-
+#-------------------------------------------------
+# Project: Coral_Reef_Distribution
+#
+# Date: 2021-10-29
+# Author: Lewis A. Jones
+# Copyright (c) Lewis A. Jones, 2021
+# Email: LewisA.Jones@outlook.com
+#
+# Script name:
+# area_calc.R
+#
+# Script description:
+# Calculate suitable area
+#
+#-------------------------------------------------
+#load libraries
 library(raster)
 source("./R/functions/lat_bins.R")
 source("./R/options.R")

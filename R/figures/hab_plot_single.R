@@ -3,7 +3,7 @@ library(ggplot2)
 library(ggpubr)
 source("./R/functions/hab_plot.R")
 
-collections <- read.csv("./data/occurrences/subsampled_PBDB_collections.csv")
+collections <- read.csv("./data/occurrences/subsampled_PARED_collections_extract.csv")
 stages <- read.csv("./data/stage_bins.csv")
 stages <- stages[6:50,]
 stages <- c("Modern", stages$interval_name)
