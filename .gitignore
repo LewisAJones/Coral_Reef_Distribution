@@ -227,5 +227,5 @@ outputs
 .RData 2
 .RDataTmp
 maxent
-
-
+.Rproj.user
+.Rhistory

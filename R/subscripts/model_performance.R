@@ -58,10 +58,11 @@ for(i in 1:nlayers(stk)){
   rand_perf <- t(data.frame(Rmisc::CI(vals, ci = 0.95)))
   
   #wilcox test
-  pval <- wilcox.test(x = perf, y = vals, alternative = "greater")$p.value
+  pval <- wilcox.test(mu = perf, x = vals, alternative = "less")$p.value
+  V <- as.numeric(wilcox.test(mu = perf, x = vals, alternative = "less")$statistic)
   
   #bind data
-  df <- cbind.data.frame(name, success, failure, n, perf, buffer_perf, rand_perf, pval)
+  df <- cbind.data.frame(name, success, failure, n, perf, buffer_perf, rand_perf, V, pval)
   rownames(df) <- NULL
   master <- rbind.data.frame(master, df)
 }
@@ -124,10 +125,11 @@ for(i in 1:nlayers(stk)){
   rand_perf <- t(data.frame(Rmisc::CI(vals, ci = 0.95)))
   
   #wilcox test
-  pval <- wilcox.test(x = perf, y = vals, alternative = "greater")$p.value
+  pval <- wilcox.test(mu = perf, x = vals, alternative = "less")$p.value
+  V <- as.numeric(wilcox.test(mu = perf, x = vals, alternative = "less")$statistic)
   
   #bind data
-  df <- cbind.data.frame(name, success, failure, n, perf, buffer_perf, rand_perf, pval)
+  df <- cbind.data.frame(name, success, failure, n, perf, buffer_perf, rand_perf, V, pval)
   rownames(df) <- NULL
   master <- rbind.data.frame(master, df)
 }
