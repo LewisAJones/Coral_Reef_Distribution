@@ -1,11 +1,11 @@
 # Climatic and tectonic drivers shaped the tropical distribution of coral reefs
 
-Author(s): [Lewis A. Jones](mailto:LewisA.Jones@outlook.com), [Philip D. Mannion](mailto:philipdmannion@gmail.com), [Alexander Farnsworth](mailto:alex.Farnsworth@bristol.ac.uk), [Daniel J. Lunt](mailto:D.J.Lunt@bristol.ac.uk)
+Author(s): [Lewis A. Jones](mailto:LewisA.Jones@outlook.com), [Philip D. Mannion](mailto:philipdmannion@gmail.com), [Alexander Farnsworth](mailto:alex.Farnsworth@bristol.ac.uk), [Fran Bragg](mailto:Fran.Bragg@bristol.ac.uk), [Daniel J. Lunt](mailto:D.J.Lunt@bristol.ac.uk)
 
-This repository contains the data and code required to run the analyses and results of the article, "Climatic and tectonic drivers shaped the tropical distribution of coral reefs" (Jones et al. 2021). 
+This repository contains the data and code required to run the analyses and results of the article, "Climatic and tectonic drivers shaped the tropical distribution of coral reefs" (Jones et al. 2022). 
 
 To cite the paper: 
-> Lewis A. Jones, Philip D. Mannion, Alexander Farnsworth, Daniel J. Lunt. 2021. Climatic and tectonic drivers shaped the tropical distribution of coral reefs. (TBC).
+> Lewis A. Jones, Philip D. Mannion, Alexander Farnsworth, Fran Bragg, Daniel J. Lunt. 2022. Climatic and tectonic drivers shaped the tropical distribution of coral reefs. (TBC).
 
 -------
 
