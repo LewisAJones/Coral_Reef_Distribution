@@ -65,7 +65,7 @@ p1 <- ggplot(data = data) +
         axis.title.x = element_text(size = 14, face = "bold", vjust = -1),
         aspect.ratio = 0.5)
 p1
-ggsave("./figures/reef_zone_plot_LPT.png", plot = p1, width = 200, height = 110, units = "mm", dpi = 600)
+ggsave("./figures/reef_zone_plot_LPT.pdf", plot = p1, width = 200, height = 110, units = "mm", dpi = 600)
 p1 <- p1 + labs(subtitle = "Least training presence")
 
 
@@ -111,6 +111,6 @@ ggsave("./figures/reef_zone_plot_MaxSSS.png", plot = p2, width = 200, height = 1
 
 p2 <- p2 + labs(subtitle = "Maximising the sum of sensitivity and specificity")
 
-p <- ggarrange(p1, p2, ncol=1, nrow=2, labels = "AUTO", align = "v", font.label = list(size = 18))
+p <- ggarrange(p1, p2, ncol=1, nrow=2, labels = "auto", align = "v", font.label = list(size = 18))
 p
 ggsave("./figures/reef_zone_plot.jpg", plot = p, width = 65, height = 75, units = "mm", dpi = 600, scale = 3)

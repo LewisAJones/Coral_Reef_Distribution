@@ -90,7 +90,7 @@ p2 <- ggplot(data = data, aes()) +
 p2 <- p2 + geom_text(x = 250, y = 45, label = lm_eqn(df = data, x = data$MaxSSS_global, y = data$n), colour = "black", size = 3, parse = TRUE)
 #p2
 
-p <- ggarrange(p1, p2, labels = c("A", "B"), ncol = 2) 
+p <- ggarrange(p1, p2, labels = c("a", "b"), ncol = 2) 
 #p
 
 ggsave("./figures/linear_models.jpg", plot = p, width = 70, height = 35, units = "mm", dpi = 600, scale = 3)

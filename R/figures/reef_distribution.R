@@ -44,4 +44,4 @@ p1 <- ggplot() +
 
 p1
 
-ggsave("./figures/reef_distribution.png", plot = p1, units = "mm", width = 300, height = 150, dpi = 300)
+ggsave("./figures/reef_distribution.pdf", plot = p1, units = "mm", width = 300, height = 150, dpi = 600)

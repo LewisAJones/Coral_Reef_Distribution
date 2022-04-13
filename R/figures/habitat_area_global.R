@@ -77,5 +77,5 @@ p1 <- ggplot(data = data, aes()) +
 #p1 <- p1 + geom_text(x = -33, y = 430, label = lm_eqn(df = data, x = data$LPT_global, y = data$n), colour = "#0c2c84", face = "bold", size = 3.5, parse = TRUE)
 #p1 <- p1 + geom_text(x = -33, y = 404, label = lm_eqn(df = data, x = data$MaxSSS_global, y = data$n), colour = "#1d91c0", face = "bold", size = 3.5, parse = TRUE)
 #p1
-ggsave("./figures/global_hab_area.png", plot = p1, width = 70, height = 35, units = "mm", dpi = 600, scale = 3)
+ggsave("./figures/global_hab_area.pdf", plot = p1, width = 70, height = 35, units = "mm", dpi = 600, scale = 3)
 
