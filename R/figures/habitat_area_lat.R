@@ -66,7 +66,7 @@ p1 <- ggplot() +
     plot.background=element_rect(fill = "white"),
     aspect.ratio = 0.5)
 
-p1 <- p1 + guides(fill = guide_colourbar(ticks.colour = "black", frame.colour = "black", label = TRUE, title = expression(bold(paste("Suitable habitat area (",10^6~km^2,")",sep=""))), title.position = "top", title.hjust = 0.5, title.vjust = -8.5))
+p1 <- p1 + guides(fill = guide_colourbar(ticks.colour = "black", frame.colour = "black", label = TRUE, title = expression(bold(paste("Suitable habitat area (",10^5~km^2,")",sep=""))), title.position = "top", title.hjust = 0.5, title.vjust = -8.5))
 ggsave("./figures/habitat_area_lat_LPT.pdf", plot = p1, width = 200, height = 140, units = "mm", dpi = 600)
 
 p1 <- p1 + labs(subtitle = "Least training presence")
@@ -102,7 +102,7 @@ p2 <- ggplot() +
     aspect.ratio = 0.5)
 
 
-p2 <- p2 + guides(fill = guide_colourbar(ticks.colour = "black", frame.colour = "black", label = TRUE, title = expression(bold(paste("Suitable habitat area (",10^6~km^2,")",sep=""))), title.position = "top", title.hjust = 0.5, title.vjust = -8.5))
+p2 <- p2 + guides(fill = guide_colourbar(ticks.colour = "black", frame.colour = "black", label = TRUE, title = expression(bold(paste("Suitable habitat area (",10^5~km^2,")",sep=""))), title.position = "top", title.hjust = 0.5, title.vjust = -8.5))
 ggsave("./figures/habitat_area_lat_MaxSSS.png", plot = p2, width = 200, height = 140, units = "mm", dpi = 600)
 
 p2 <- p2 + labs(subtitle = "Maximising the sum of sensitivity and specificity")

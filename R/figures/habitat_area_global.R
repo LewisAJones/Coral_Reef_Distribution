@@ -52,7 +52,7 @@ p1 <- ggplot(data = data, aes()) +
   scale_x_reverse(expand=c(0,0)) +
   scale_y_continuous(expand = c(0,0), limits = c(-40, 550), breaks = seq(0, 550, 100),   
                      sec.axis = sec_axis(~./coeff, name = expression(bold(paste("Fossil coral reef sites (", italic("n"), ")", sep = ""))))) +
-  labs(x = "Time (Ma)", y = expression(bold(paste("Suitable habitat area (",10^6~km^2,")",sep="")))) +
+  labs(x = "Time (Ma)", y = expression(bold(paste("Suitable habitat area (",10^5~km^2,")",sep="")))) +
   theme(panel.background = element_blank(),
         plot.margin = margin(0.5,0.5,0.5,0.5, "cm"),
         panel.grid.minor.y = element_line(colour = NA),

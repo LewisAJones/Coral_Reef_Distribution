@@ -104,7 +104,7 @@ p2 <- ggplot() +
     aspect.ratio = 0.5)
 
 
-p2 <- p2 + guides(fill = guide_colourbar(ticks.colour = "black", frame.colour = "black", label = TRUE, title = expression(bold(paste("Shallow marine area (",10^6~km^2,")",sep=""))), title.position = "top", title.hjust = 0.5, title.vjust = -8.5))
+p2 <- p2 + guides(fill = guide_colourbar(ticks.colour = "black", frame.colour = "black", label = TRUE, title = expression(bold(paste("Shallow marine area (",10^5~km^2,")",sep=""))), title.position = "top", title.hjust = 0.5, title.vjust = -8.5))
 p2
 
 ggsave("./figures/temperature_plot.png", plot = p1, width = 210, height = 140, units = "mm", dpi = 600)
