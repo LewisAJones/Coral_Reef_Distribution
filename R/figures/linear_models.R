@@ -33,7 +33,7 @@ lm_eqn <- function(df, x, y){
 p1 <- ggplot(data = data, aes()) +
   geom_point(aes(x = LPT_global, y = n), shape = 21, fill = data$color, colour = "black", size = 2, alpha = 1) +
   geom_smooth(aes(x = LPT_global, y = n), method='lm', colour = "black", formula= y~x) +
-  labs(x = expression(bold(paste("Suitable habitat area (",10^6~km^2,")",sep=""))), y = "Number of reef sites", subtitle = "Least training presence") +
+  labs(x = expression(bold(paste("Suitable habitat area (",10^5~km^2,")",sep=""))), y = "Number of reef sites", subtitle = "Least training presence") +
   theme(panel.background = element_blank(),
         plot.margin = margin(0.5,0.5,0.5,0.5, "cm"),
         panel.grid.minor.y = element_line(colour = NA),
@@ -64,7 +64,7 @@ p1 <- p1 + geom_text(x = 340, y = 45, label = lm_eqn(df = data, x = data$LPT_glo
 p2 <- ggplot(data = data, aes()) +
   geom_point(aes(x = MaxSSS_global, y = n), shape = 21, fill = data$color, colour = "black", size = 2, alpha = 1) +
   geom_smooth(aes(x = MaxSSS_global, y = n), method='lm', colour = "black", formula= y~x) +
-  labs(x = expression(bold(paste("Suitable habitat area (",10^6~km^2,")",sep=""))), y = "Number of reef sites", subtitle = "Maximising the sum of sensitivity and specificity") +
+  labs(x = expression(bold(paste("Suitable habitat area (",10^5~km^2,")",sep=""))), y = "Number of reef sites", subtitle = "Maximising the sum of sensitivity and specificity") +
   theme(panel.background = element_rect(colour = "white", fill = "white"),
         plot.margin = margin(0.5,0.5,0.5,0.5, "cm"),
         panel.grid.minor.y = element_line(colour = NA),
