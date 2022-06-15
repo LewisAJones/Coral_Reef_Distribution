@@ -5,7 +5,7 @@ Author(s): [Lewis A. Jones](mailto:LewisA.Jones@outlook.com), [Philip D. Mannion
 This repository contains the data and code required to run the analyses and results of the article, "Climatic and tectonic drivers shaped the tropical distribution of coral reefs" (Jones et al. 2022). 
 
 To cite the paper: 
-> Lewis A. Jones, Philip D. Mannion, Alexander Farnsworth, Fran Bragg, Daniel J. Lunt. 2022. Climatic and tectonic drivers shaped the tropical distribution of coral reefs. (Nature Communications).
+> Lewis A. Jones, Philip D. Mannion, Alexander Farnsworth, Fran Bragg, Daniel J. Lunt. 2022. Climatic and tectonic drivers shaped the tropical distribution of coral reefs. *Nature Communications* 13 (3120).
 
 -------
 
